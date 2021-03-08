@@ -4,8 +4,9 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include <openssl/sha.h>
 #include <openssl/ec.h>
+#include <openssl/sha.h>
+#include <openssl/objects.h>
 
 #define PRI_FILENAME	"key.pem"
 #define PUB_FILENAME	"key_pub.pem"
@@ -26,12 +27,8 @@
  */
 typedef struct sig_s
 {
-    /*
-     * @sig must stay first, so we can directly use the structure as
-     * an array of char
-     */
-    uint8_t	sig[SIG_MAX_LEN];
-    uint8_t	len;
+	uint8_t	sig[SIG_MAX_LEN];
+	uint8_t	len;
 } sig_t;
 
 uint8_t *sha256(
