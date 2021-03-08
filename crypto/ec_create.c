@@ -3,8 +3,9 @@
 /**
  * ec_create - create a new EC key pair
  *
- * Return: If an error occurs, return NULL. Otherwise, return a pointer to an
- * EC_KEY structure containing both the public and private keys.
+ * Return: If an error occurs, return NULL.
+ * Otherwise, return a pointer to an EC_KEY structure containing both the
+ * public and private keys.
  */
 EC_KEY *ec_create(void)
 {
