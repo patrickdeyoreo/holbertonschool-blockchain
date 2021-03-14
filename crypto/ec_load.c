@@ -1,90 +1,44 @@
 #include "hblk_crypto.h"
 
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
-
 /**
- * _ec_load - load public and private keys in PEM format (subroutine)
- *
- * @folder: path of the directory from which to load the keys
- * @ifile_len: maximum input file path length
- * @key: address of an EC key pair pointer
- *
- * Description: The public and private keys will be loaded from the filenames
- * defined by the macros PUB_FILENAME and PRI_FILENAME, respectively, which
- * default to 'key_pub.pem' and 'key.pem'.
- *
- * Return: Upon failure, return NULL. Otherwise, return a pointer to the loaded
- * EC key pair.
- */
-static EC_KEY *_ec_load(char const *folder, size_t ifile_len, EC_KEY **key)
-{
-	FILE *istream = NULL;
-	char *ifile = calloc(ifile_len + 1, sizeof(*ifile));
-
-	if (!ifile)
-	{
-		return (NULL);
-	}
-	sprintf(ifile, "%s/" PRI_FILENAME "%c", folder, '\0');
-	istream = fopen(ifile, "r");
-	if (!istream)
-	{
-		free(ifile);
-		return (NULL);
-	}
-	if (!PEM_read_ECPrivateKey(istream, key, NULL, NULL))
-	{
-		fclose(istream);
-		EC_KEY_free(*key);
-		free(ifile);
-		return (NULL);
-	}
-	fclose(istream);
-	sprintf(ifile, "%s/" PUB_FILENAME "%c", folder, '\0');
-	istream = fopen(ifile, "r");
-	if (!istream)
-	{
-		EC_KEY_free(*key);
-		free(ifile);
-		return (NULL);
-	}
-	if (!PEM_read_EC_PUBKEY(istream, key, NULL, NULL))
-	{
-		fclose(istream);
-		EC_KEY_free(*key);
-		free(ifile);
-		return (NULL);
-	}
-	fclose(istream);
-	free(ifile);
-	return (*key);
-}
-
-/**
- * ec_load - load public and private keys in PEM format
- *
- * @folder: path of the directory from which to load the keys
- *
- * Description: The public and private keys will be loaded from the filenames
- * defined by the macros PUB_FILENAME and PRI_FILENAME, respectively, which
- * default to 'key_pub.pem' and 'key.pem'.
- *
- * Return: Upon failure, return NULL. Otherwise, return a pointer to the loaded
- * EC key pair.
+ * ec_load - loads public/private keys from PEM format
+ * @folder: the folder to load from
+ * Return: pointer to EC_KEY struct with key pair or NULL
  */
 EC_KEY *ec_load(char const *folder)
 {
-	size_t folder_len = 0;
-	size_t pri_file_len = 0;
-	size_t pub_file_len = 0;
+	FILE *fp;
+	char path[128] = {0};
 	EC_KEY *key = NULL;
 
 	if (!folder)
+		return (0);
+
+
+	sprintf(path, "%s/" PUB_FILENAME, folder);
+	fp = fopen(path, "r");
+	if (!fp)
 	{
-		return (NULL);
+		EC_KEY_free(key);
+		return (0);
 	}
-	folder_len = strlen(folder);
-	pri_file_len = folder_len + strlen("/" PRI_FILENAME);
-	pub_file_len = folder_len + strlen("/" PUB_FILENAME);
-	return (_ec_load(folder, MAX(pri_file_len, pub_file_len), &key));
+	if (!PEM_read_EC_PUBKEY(fp, &key, NULL, NULL))
+	{
+		EC_KEY_free(key);
+		fclose(fp);
+		return (0);
+	}
+	fclose(fp);
+
+	sprintf(path, "%s/" PRI_FILENAME, folder);
+	fp = fopen(path, "r");
+	if (!fp)
+		return (0);
+	if (!PEM_read_ECPrivateKey(fp, &key, NULL, NULL))
+	{
+		fclose(fp);
+		return (0);
+	}
+	fclose(fp);
+	return (key);
 }
