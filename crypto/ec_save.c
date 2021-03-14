@@ -59,7 +59,7 @@ static int _ec_save(EC_KEY *key, char const *folder, size_t ofile_len)
  * @folder: path of the directory in which to save the keys
  *
  * Description: If the directory @folder does not exist, it will be created.
- * The public and private keys will be saved under the names defined by the
+ * The public and private keys will be saved to the filenames defined by the
  * macros PUB_FILENAME and PRI_FILENAME, respectively, which default to
  * 'key_pub.pem' and 'key.pem'.
  *
@@ -68,8 +68,8 @@ static int _ec_save(EC_KEY *key, char const *folder, size_t ofile_len)
 int ec_save(EC_KEY *key, char const *folder)
 {
 	size_t folder_len = 0;
-	size_t pri_path_len = 0;
-	size_t pub_path_len = 0;
+	size_t pri_file_len = 0;
+	size_t pub_file_len = 0;
 
 	if (!key || !folder)
 	{
@@ -80,7 +80,7 @@ int ec_save(EC_KEY *key, char const *folder)
 		return (0);
 	}
 	folder_len = strlen(folder);
-	pri_path_len = folder_len + strlen("/" PRI_FILENAME);
-	pub_path_len = folder_len + strlen("/" PUB_FILENAME);
-	return (_ec_save(key, folder, MAX(pri_path_len, pub_path_len)));
+	pri_file_len = folder_len + strlen("/" PRI_FILENAME);
+	pub_file_len = folder_len + strlen("/" PUB_FILENAME);
+	return (_ec_save(key, folder, MAX(pri_file_len, pub_file_len)));
 }
