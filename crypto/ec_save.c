@@ -75,10 +75,7 @@ int ec_save(EC_KEY *key, char const *folder)
 	{
 		return (0);
 	}
-	if (mkdir(folder, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) == -1)
-	{
-		return (0);
-	}
+	mkdir(folder, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
 	folder_len = strlen(folder);
 	pri_file_len = folder_len + strlen("/" PRI_FILENAME);
 	pub_file_len = folder_len + strlen("/" PUB_FILENAME);
