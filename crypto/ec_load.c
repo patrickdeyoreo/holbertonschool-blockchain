@@ -7,7 +7,7 @@
  *
  * @folder: path of the directory from which to load the keys
  * @ifile_len: maximum input file path length
- * @key: EC key pair pointer
+ * @key: address of an EC key pair pointer
  *
  * Description: The public and private keys will be loaded from the filenames
  * defined by the macros PUB_FILENAME and PRI_FILENAME, respectively, which
@@ -16,7 +16,7 @@
  * Return: Upon failure, return NULL. Otherwise, return a pointer to the loaded
  * EC key pair.
  */
-static EC_KEY *_ec_load(char const *folder, size_t ifile_len, EC_KEY *key)
+static EC_KEY *_ec_load(char const *folder, size_t ifile_len, EC_KEY **key)
 {
 	FILE *istream = NULL;
 	char *ifile = calloc(ifile_len + 1, sizeof(*ifile));
@@ -32,10 +32,10 @@ static EC_KEY *_ec_load(char const *folder, size_t ifile_len, EC_KEY *key)
 		free(ifile);
 		return (NULL);
 	}
-	if (!PEM_read_ECPrivateKey(istream, &key, NULL, NULL))
+	if (!PEM_read_ECPrivateKey(istream, key, NULL, NULL))
 	{
 		fclose(istream);
-		EC_KEY_free(key);
+		EC_KEY_free(*key);
 		free(ifile);
 		return (NULL);
 	}
@@ -44,20 +44,20 @@ static EC_KEY *_ec_load(char const *folder, size_t ifile_len, EC_KEY *key)
 	istream = fopen(ifile, "r");
 	if (!istream)
 	{
-		EC_KEY_free(key);
+		EC_KEY_free(*key);
 		free(ifile);
 		return (NULL);
 	}
-	if (!PEM_read_EC_PUBKEY(istream, &key, NULL, NULL))
+	if (!PEM_read_EC_PUBKEY(istream, key, NULL, NULL))
 	{
 		fclose(istream);
-		EC_KEY_free(key);
+		EC_KEY_free(*key);
 		free(ifile);
 		return (NULL);
 	}
 	fclose(istream);
 	free(ifile);
-	return (key);
+	return (*key);
 }
 
 /**
@@ -77,6 +77,7 @@ EC_KEY *ec_load(char const *folder)
 	size_t folder_len = 0;
 	size_t pri_file_len = 0;
 	size_t pub_file_len = 0;
+	EC_KEY *key = NULL;
 
 	if (!folder)
 	{
@@ -85,5 +86,5 @@ EC_KEY *ec_load(char const *folder)
 	folder_len = strlen(folder);
 	pri_file_len = folder_len + strlen("/" PRI_FILENAME);
 	pub_file_len = folder_len + strlen("/" PUB_FILENAME);
-	return (_ec_load(folder, MAX(pri_file_len, pub_file_len), NULL));
+	return (_ec_load(folder, MAX(pri_file_len, pub_file_len), &key));
 }
