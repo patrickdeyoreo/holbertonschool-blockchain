@@ -5,8 +5,8 @@
 #include <stdint.h>
 
 #include <openssl/ec.h>
-#include <openssl/sha.h>
 #include <openssl/objects.h>
+#include <openssl/sha.h>
 
 #define PRI_FILENAME	"key.pem"
 #define PUB_FILENAME	"key_pub.pem"
