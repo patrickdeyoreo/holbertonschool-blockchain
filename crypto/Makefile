@@ -25,4 +25,4 @@ tags:
 	$(CTAGS) -f $(TAGS) -R
 
 libhblk_crypto.a: $(OBJ)
-	$(AR) $^ $@
+	$(AR) $@ $^
