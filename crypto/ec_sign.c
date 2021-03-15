@@ -8,16 +8,17 @@
  * @msglen: length of @message
  * @sig: address at which to store the signature
  *
- * Return: If key or msg is NULL, or if an error occurs, return NULL.
+ * Return: If key, msg, or sig is NULL, or if an error occurs, return NULL.
  * Otherwise, return a pointer to the buffer containing the signature.
  */
 uint8_t *ec_sign(
 	EC_KEY const *key, uint8_t const *msg, size_t msglen, sig_t *sig)
 {
-	unsigned int len = sig->len;
+	unsigned int len = 0;
 
-	if (key && msg)
+	if (key && msg && sig)
 	{
+		len = sig->len;
 		if (ECDSA_sign(0, msg, msglen, sig->sig, &len, (EC_KEY *)key))
 		{
 			sig->len = len;
