@@ -16,14 +16,15 @@ uint8_t *ec_sign(
 {
 	unsigned int len = 0;
 
-	if (key && msg && sig)
+	if (key && msg && msglen)
 	{
-		len = sig->len;
+		memset(sig->sig, 0, sizeof(sig->sig) / sizeof(*sig->sig));
 		if (ECDSA_sign(0, msg, msglen, sig->sig, &len, (EC_KEY *)key))
 		{
 			sig->len = len;
 			return (sig->sig);
 		}
+		sig->len = 0;
 	}
 	return (NULL);
 }
