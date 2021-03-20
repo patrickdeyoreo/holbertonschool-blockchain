@@ -18,6 +18,7 @@ uint8_t *ec_sign(
 
 	if (key && msg && msglen)
 	{
+		memset(sig->sig, 0, sizeof(sig->sig) / sizeof(*sig->sig));
 		if (ECDSA_sign(0, msg, msglen, sig->sig, &len, (EC_KEY *)key))
 		{
 			sig->len = len;
