@@ -16,7 +16,49 @@
 #include "../../llist/llist.h"
 #include "provided/endianness.h"
 
-#define BLOCK_DATA_MAX_LEN 1024
+#define BLOCK_DATA_MAX_LEN							\
+	1024
+
+#define BLOCK_GENESIS_INIT_INFO_INDEX						\
+	0
+#define BLOCK_GENESIS_INIT_INFO_DIFFICULTY					\
+	0
+#define BLOCK_GENESIS_INIT_INFO_TIMESTAMP					\
+	1537578000
+#define BLOCK_GENESIS_INIT_INFO_NONCE						\
+	0
+#define BLOCK_GENESIS_INIT_INFO_PREV_HASH					\
+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"	\
+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+#define BLOCK_GENESIS_INIT_INFO							\
+{										\
+	BLOCK_GENESIS_INIT_INFO_INDEX,						\
+	BLOCK_GENESIS_INIT_INFO_DIFFICULTY,					\
+	BLOCK_GENESIS_INIT_INFO_TIMESTAMP,					\
+	BLOCK_GENESIS_INIT_INFO_NONCE,						\
+	BLOCK_GENESIS_INIT_INFO_PREV_HASH					\
+}
+
+#define BLOCK_GENESIS_INIT_DATA_BUFFER						\
+	"Holberton School"
+#define BLOCK_GENESIS_INIT_DATA_LEN						\
+	16
+#define BLOCK_GENESIS_INIT_DATA							\
+{										\
+	BLOCK_GENESIS_INIT_DATA_BUFFER,						\
+	BLOCK_GENESIS_INIT_DATA_LEN						\
+}
+
+#define BLOCK_GENESIS_INIT_HASH							\
+	"\xc5\x2c\x26\xc8\xb5\x46\x16\x39\x63\x5d\x8e\xdf\x2a\x97\xd4\x8d"	\
+	"\x0c\x8e\x00\x09\xc8\x17\xf2\xb1\xd3\xd7\xff\x2f\x04\x51\x58\x03"
+
+#define BLOCK_GENESIS_INIT							\
+{										\
+	BLOCK_GENESIS_INIT_INFO,						\
+	BLOCK_GENESIS_INIT_DATA,						\
+	BLOCK_GENESIS_INIT_HASH							\
+}
 
 /**
  * struct block_info_s - block info
