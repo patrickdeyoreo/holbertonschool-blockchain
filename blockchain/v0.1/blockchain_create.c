@@ -28,16 +28,16 @@ blockchain_t *blockchain_create(void)
 	block->info.difficulty = BLOCK_GENESIS_INIT_INFO_DIFFICULTY;
 	block->info.timestamp = BLOCK_GENESIS_INIT_INFO_TIMESTAMP;
 	block->info.nonce = BLOCK_GENESIS_INIT_INFO_NONCE;
-	memcpy(block->info.prev_hash,
-	       BLOCK_GENESIS_INIT_INFO_PREV_HASH,
-	       SHA256_DIGEST_LENGTH);
-	memcpy(block->data.buffer,
-	       BLOCK_GENESIS_INIT_DATA_BUFFER,
-	       BLOCK_GENESIS_INIT_DATA_LEN);
+	memcpy(
+		block->info.prev_hash,
+		BLOCK_GENESIS_INIT_INFO_PREV_HASH, SHA256_DIGEST_LENGTH);
+	memcpy(
+		block->data.buffer,
+		BLOCK_GENESIS_INIT_DATA_BUFFER, BLOCK_GENESIS_INIT_DATA_LEN);
 	block->data.len = BLOCK_GENESIS_INIT_DATA_LEN;
-	memcpy(block->hash,
-	       BLOCK_GENESIS_INIT_HASH,
-	       SHA256_DIGEST_LENGTH);
+	memcpy(
+		block->hash,
+		BLOCK_GENESIS_INIT_HASH, SHA256_DIGEST_LENGTH);
 	if (llist_add_node(blockchain->chain, block, ADD_NODE_FRONT) == -1)
 	{
 		llist_destroy(blockchain->chain, 1, NULL);
