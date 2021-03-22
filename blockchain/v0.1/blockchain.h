@@ -118,4 +118,6 @@ block_t *block_create(
 
 void block_destroy(block_t *block);
 
+void blockchain_destroy(blockchain_t *blockchain);
+
 #endif /* _BLOCKCHAIN_H_ */
