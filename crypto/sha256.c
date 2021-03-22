@@ -10,7 +10,8 @@
  * Description: If digest is not NULL, compute the SHA-256 message digest of
  * the first @len bytes in @s and store the result in @digest.
  *
- * Return: @digest
+ * Return: If @s is NULL, return NULL.
+ * Otherwise, return @digest.
  */
 uint8_t *sha256(
 	int8_t const *s, size_t len, uint8_t digest[SHA256_DIGEST_LENGTH])
