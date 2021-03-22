@@ -9,8 +9,7 @@ void blockchain_destroy(blockchain_t *blockchain)
 {
 	if (blockchain)
 	{
-		node_dtor_t block_dtor = (void (*)(void *))block_destroy;
-		llist_destroy(blockchain->chain, 1, block_dtor);
+		llist_destroy(blockchain->chain, 1, (node_dtor_t)block_destroy);
 		blockchain->chain = NULL;
 		free(blockchain);
 	}
