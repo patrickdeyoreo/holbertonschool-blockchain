@@ -58,6 +58,22 @@
 	"\xc5\x2c\x26\xc8\xb5\x46\x16\x39\x63\x5d\x8e\xdf\x2a\x97\xd4\x8d"	\
 	"\x0c\x8e\x00\x09\xc8\x17\xf2\xb1\xd3\xd7\xff\x2f\x04\x51\x58\x03"
 
+#define BLOCK_GENESIS_INIT							\
+{										\
+	{									\
+		BLOCK_GENESIS_INIT_INFO_INDEX,					\
+		BLOCK_GENESIS_INIT_INFO_DIFFICULTY,				\
+		BLOCK_GENESIS_INIT_INFO_TIMESTAMP,				\
+		BLOCK_GENESIS_INIT_INFO_NONCE,					\
+		BLOCK_GENESIS_INIT_INFO_PREV_HASH				\
+	},									\
+	{									\
+		BLOCK_GENESIS_INIT_DATA_BUFFER,					\
+		BLOCK_GENESIS_INIT_DATA_LEN					\
+	},									\
+	BLOCK_GENESIS_INIT_HASH							\
+}
+
 /**
  * struct block_info_s - block info
  *
@@ -138,5 +154,7 @@ uint8_t *block_hash(
 int blockchain_serialize(blockchain_t const *blockchain, char const *path);
 
 blockchain_t *blockchain_deserialize(char const *path);
+
+int block_is_valid(block_t const *block, block_t const *prev_block);
 
 #endif /* _BLOCKCHAIN_H_ */
