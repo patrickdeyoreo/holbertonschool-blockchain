@@ -137,4 +137,6 @@ uint8_t *block_hash(
 
 int blockchain_serialize(blockchain_t const *blockchain, char const *path);
 
+blockchain_t *blockchain_deserialize(char const *path);
+
 #endif /* _BLOCKCHAIN_H_ */

@@ -1,7 +1,7 @@
 #include "blockchain.h"
 
 /**
- * blockchain_serialize - serialize a blockchain and write it to a file
+ * blockchain_serialize - serialize a blockchain to a file
  *
  * @blockchain: pointer to the blockchain to be serialized
  * @path: path to a file in which to write the serialized blockchain
