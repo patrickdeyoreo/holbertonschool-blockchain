@@ -1,14 +1,18 @@
 #include "blockchain.h"
 
 /**
- * blockchain_difficulty - adjust difficulty for next block of blockchain
- * @blockchain: pointer to working blockchain
- * Return: adjusted difficulty
+ * blockchain_difficulty - compute difficulty of the next block in a blockchain
+ *
+ * @blockchain: pointer to the blockchain to analyze
+ *
+ * Return: difficulty to be assigned to the next block in @blockchain
  */
 uint32_t blockchain_difficulty(blockchain_t const *blockchain)
 {
-	block_t *last_block, *adjusted_block;
-	uint64_t expected_time, actual_time;
+	block_t *last_block = NULL;
+	block_t *adjusted_block = NULL;
+	uint64_t expected_time = 0;
+	uint64_t actual_time = 0;
 
 	if (!blockchain)
 		return (0);
