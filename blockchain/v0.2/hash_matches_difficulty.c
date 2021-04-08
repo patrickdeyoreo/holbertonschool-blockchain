@@ -1,7 +1,7 @@
 #include "blockchain.h"
 
 /**
- * compute_difficulty - computers number of leading bits in hash
+ * get_difficulty - computers number of leading bits in hash
  *
  * @hash: hash buffer
  *
@@ -15,7 +15,7 @@ static uint32_t compute_difficulty(uint8_t const hash[SHA256_DIGEST_LENGTH])
 
 	while (ptr < hash + SHA256_DIGEST_LENGTH)
 	{
-		for (i = 7; i >= 0; i += 1)
+		for (i = 7; i >= 0; i -= 1)
 		{
 			if ((*ptr >> i) & 1)
 				return (difficulty);
