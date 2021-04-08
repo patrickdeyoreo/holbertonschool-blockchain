@@ -9,7 +9,7 @@
  */
 static uint32_t compute_difficulty(uint8_t const hash[SHA256_DIGEST_LENGTH])
 {
-	const uint8_t *ptr = hash;
+	uint8_t *ptr = (uint8_t *)hash;
 	uint32_t difficulty = 0;
 	int i = 0;
 
