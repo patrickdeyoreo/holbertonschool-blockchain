@@ -30,12 +30,13 @@ int validate_tx(llist_node_t node, unsigned int idx, void *arg)
  *
  * @block: pointer to the block to be verified
  * @prev_block: pointer to the previous block (or NULL if @block is the first)
+ * @all_unspent: list of all unspent transaction outputs
  *
  * Return: If the block is invalid, return 1.
  * Otherwise, return 0.
  */
-int block_is_valid(block_t const *block, block_t const *prev_block,
-	llist_t *all_unspent)
+int block_is_valid(
+	block_t const *block, block_t const *prev_block, llist_t *all_unspent)
 {
 	uint8_t hash_buf[SHA256_DIGEST_LENGTH] = {0};
 	block_t const _genesis = BLOCK_GENESIS_INIT;
