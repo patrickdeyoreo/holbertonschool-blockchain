@@ -34,17 +34,17 @@ int validate_tx(llist_node_t node, unsigned int idx, void *arg)
  * Return: If the block is invalid, return 1.
  * Otherwise, return 0.
  */
-int block_is_valid(
-	block_t const *block, block_t const *prev_block, llist_t *all_unspent)
+int block_is_valid(block_t const *block, block_t const *prev_block,
+	llist_t *all_unspent)
 {
 	uint8_t hash_buf[SHA256_DIGEST_LENGTH] = {0};
-	block_t const genesis = BLOCK_GENESIS_INIT;
+	block_t const _genesis = BLOCK_GENESIS_INIT;
 	validation_vistor_t visitor = {0};
 
 	if (!block || (!prev_block && block->info.index != 0))
 		return (1);
 	if (block->info.index == 0)
-		return (memcmp(block, &genesis, sizeof(genesis)));
+		return (memcmp(block, &_genesis, sizeof(_genesis)));
 	if (block->info.index != prev_block->info.index + 1)
 		return (1);
 	if (!block_hash(prev_block, hash_buf) ||
@@ -69,3 +69,4 @@ int block_is_valid(
 		return (1);
 	return (0);
 }
+
