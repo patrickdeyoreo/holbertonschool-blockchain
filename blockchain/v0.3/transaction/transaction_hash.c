@@ -4,8 +4,8 @@
  * transaction_hash_input - hash a transaction input
  *
  * @node: transaction input structure
- * @idx: index of node
- * @arg: pointer to address to write to
+ * @idx: index of list node
+ * @arg: address of a pointer to the buffer in which to write
  *
  * Return: Always 0
  */
@@ -22,9 +22,9 @@ static int transaction_hash_input(
 /**
  * transaction_hash_output - hash a transaction output
  *
- * @node: tx_out_t * struct
- * @idx: index of node
- * @arg: pointer to address to write to
+ * @node: transaction output structure
+ * @idx: index of list node
+ * @arg: address of a pointer to the buffer in which to write
  *
  * Return: Always 0
  */
