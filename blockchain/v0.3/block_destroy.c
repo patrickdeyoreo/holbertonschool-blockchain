@@ -9,6 +9,8 @@ void block_destroy(block_t *block)
 {
 	if (block)
 	{
+		llist_destroy(block->transactions, 1,
+			(node_dtor_t)transaction_destroy);
 		block->info.index = 0;
 		block->info.difficulty = 0;
 		block->info.timestamp = 0;
