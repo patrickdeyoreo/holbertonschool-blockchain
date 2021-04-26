@@ -86,6 +86,43 @@ typedef struct unspent_tx_out_s
 
 tx_out_t *tx_out_create(uint32_t amount, uint8_t const pub[EC_PUB_LEN]);
 
+/**
+ * struct visitor_s - visitor structure
+ *
+ * @sender_unspent: list to collect sender's unspent transaction outputs
+ * @sender_pub: sender's public key
+ * @total_amount: amount of unspent transaction outputs
+ * @amount: amount to send
+ */
+typedef struct visitor_s
+{
+	llist_t *sender_unspent;
+	uint8_t *sender_pub;
+	uint64_t total_amount;
+	uint64_t amount;
+
+} visitor_t;
+
+/**
+ * struct validation_visitor_s - validation visitor structure
+ *
+ * @in_amount: total transaction input amount
+ * @out_amount: total transaction output amount
+ * @all_unspent: all unspent transaction outputs
+ * @tx: transaction to validate
+ * @block_index: the block index cointaining @tx
+ * @valid: whether or not tx is valid
+ */
+typedef struct validation_visitor_s
+{
+	int64_t in_amount;
+	int64_t out_amount;
+	llist_t *all_unspent;
+	transaction_t const *tx;
+	uint32_t block_index;
+	int32_t valid;
+} validation_vistor_t;
+
 unspent_tx_out_t *unspent_tx_out_create(
 	uint8_t block_hash[SHA256_DIGEST_LENGTH],
 	uint8_t tx_id[SHA256_DIGEST_LENGTH], tx_out_t const *out);
