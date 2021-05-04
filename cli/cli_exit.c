@@ -19,12 +19,7 @@ int cli_exit(state_t *state)
 		fprintf(stderr, "%s: too many arguments\n", state->argv[0]);
 		return ((state->status = 2));
 	}
-	free(state->line);
-	state->line = NULL;
-	state->linesz = 0;
-	free(state->argv);
-	state->argv = NULL;
-	state->argc = 0;
+	state_clear(state);
 	exit(EXIT_SUCCESS);
 	return ((state->status = EXIT_FAILURE));
 }

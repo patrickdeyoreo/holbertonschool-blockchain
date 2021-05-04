@@ -13,6 +13,8 @@
  */
 int cli_load(state_t *state)
 {
+	blockchain_t *blockchain = NULL;
+
 	if (state->argc > 2)
 	{
 		fprintf(stderr, "%s: too many arguments\n", state->argv[0]);
@@ -23,5 +25,16 @@ int cli_load(state_t *state)
 		fprintf(stderr, "%s: too few arguments\n", state->argv[0]);
 		return ((state->status = 2));
 	}
+	blockchain = blockchain_deserialize(state->argv[1]);
+	if (!blockchain)
+	{
+		fprintf(stdout, "Failed to load blockchain from %s\n",
+			state->argv[1]);
+		return ((state->status = EXIT_FAILURE));
+	}
+	blockchain_destroy(state->blockchain);
+	state->blockchain = blockchain;
+	fprintf(stdout, "Successfully loaded blockchain from %s\n",
+		state->argv[1]);
 	return ((state->status = EXIT_SUCCESS));
 }

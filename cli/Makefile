@@ -1,9 +1,10 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic
-AR = ar -rcs
 RM = rm -f
 CTAGS = ctags
 TAGS = .tags
+
+LIBS = -L../blockchain/v0.3 -lhblk_blockchain -L../crypto -lhblk_crypto -lllist -lssl -lcrypto -pthread
 
 SRC = $(wildcard *.c)
 OBJ = $(patsubst %.c,%.o,$(SRC))
@@ -25,4 +26,4 @@ tags:
 	$(CTAGS) -f $(TAGS) -R
 
 cli: $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)

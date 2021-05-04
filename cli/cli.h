@@ -3,6 +3,13 @@
 
 #include <stddef.h>
 
+#include <llist.h>
+
+#include "../crypto/hblk_crypto.h"
+#include "../blockchain/v0.3/blockchain.h"
+#include "../blockchain/v0.3/provided/provided.h"
+#include "../blockchain/v0.3/transaction/transaction.h"
+
 #define BLANK " \t\n"
 
 #define PROMPT "> "
@@ -51,6 +58,9 @@
  * @argv: command argument vector
  * @line: command line buffer
  * @linesz: size of @line
+ * @wallet: wallet
+ * @blockchain: blockchain
+ * @tx_pool: transaction pool
  */
 typedef struct state_s
 {
@@ -59,6 +69,9 @@ typedef struct state_s
 	char **argv;
 	char *line;
 	size_t linesz;
+	EC_KEY *wallet;
+	blockchain_t *blockchain;
+	llist_t *tx_pool;
 } state_t;
 
 typedef int (*command_func_t)(state_t *);
@@ -91,5 +104,10 @@ int cli_wallet_save(state_t *state);
 
 command_t const *get_commands(void);
 command_t const *find_command(char const *name);
+
+void state_init(state_t *state);
+void state_clear(state_t *state);
+
+void print_hex_buffer(uint8_t const *buf, size_t len);
 
 #endif /* _CLI_H_ */

@@ -1,3 +1,4 @@
+#include <llist.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -72,23 +73,20 @@ static void tokenize(state_t *state)
  */
 int main(void)
 {
-	state_t state = {
-		EXIT_SUCCESS,
-		0,
-		NULL,
-		NULL,
-		0
-	};
+	state_t state = {0};
 	ssize_t nread = 0;
+	int status = 0;
 
+	state_init(&state);
 	while (1)
 	{
 		printf("%s", PROMPT);
 		nread = getline(&state.line, &state.linesz, stdin);
-		if (nread < 0)
-			state.status = EXIT_FAILURE;
 		if (nread < 1)
+		{
+			printf("\n");
 			break;
+		}
 		tokenize(&state);
 		if (state.argv && state.argc > 0)
 			state.status = dispatch(&state);
@@ -96,7 +94,7 @@ int main(void)
 		state.argc = 0;
 		state.argv = NULL;
 	}
-	free(state.line);
-	free(state.argv);
-	return (state.status);
+	status = state.status;
+	state_clear(&state);
+	return (status);
 }
