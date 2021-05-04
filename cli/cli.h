@@ -49,12 +49,16 @@
  * @status: status of the most recently executed command
  * @argc: command argument count
  * @argv: command argument vector
+ * @line: command line buffer
+ * @linesz: size of @line
  */
 typedef struct state_s
 {
 	int status;
 	int argc;
 	char **argv;
+	char *line;
+	size_t linesz;
 } state_t;
 
 typedef int (*command_func_t)(state_t *);
@@ -84,5 +88,7 @@ int cli_save(state_t *state);
 int cli_send(state_t *state);
 int cli_wallet_load(state_t *state);
 int cli_wallet_save(state_t *state);
+
+command_t const *get_commands(void);
 
 #endif /* _CLI_H_ */

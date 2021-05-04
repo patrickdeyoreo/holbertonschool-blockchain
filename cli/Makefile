@@ -25,3 +25,4 @@ tags:
 	$(CTAGS) -f $(TAGS) -R
 
 cli: $(OBJ)
+	$(CC) $(CFLAGS) $^ -o $@
