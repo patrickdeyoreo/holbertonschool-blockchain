@@ -23,5 +23,13 @@ int cli_wallet_save(state_t *state)
 		fprintf(stderr, "%s: too few arguments\n", state->argv[0]);
 		return ((state->status = 2));
 	}
+	if (!ec_save(state->wallet, state->argv[1]))
+	{
+		fprintf(stdout, "Failed to save wallet to %s\n",
+			state->argv[1]);
+		return ((state->status = EXIT_FAILURE));
+	}
+	fprintf(stdout, "Saved wallet to %s\n",
+		state->argv[1]);
 	return ((state->status = EXIT_SUCCESS));
 }

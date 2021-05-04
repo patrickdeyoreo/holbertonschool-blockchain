@@ -29,7 +29,7 @@ int cli_save(state_t *state)
 			state->argv[1]);
 		return ((state->status = EXIT_FAILURE));
 	}
-	fprintf(stdout, "Successfully saved blockchain to %s\n",
+	fprintf(stdout, "Saved blockchain to %s\n",
 		state->argv[1]);
 	return ((state->status = EXIT_SUCCESS));
 }

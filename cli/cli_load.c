@@ -34,7 +34,7 @@ int cli_load(state_t *state)
 	}
 	blockchain_destroy(state->blockchain);
 	state->blockchain = blockchain;
-	fprintf(stdout, "Successfully loaded blockchain from %s\n",
+	fprintf(stdout, "Loaded blockchain from %s\n",
 		state->argv[1]);
 	return ((state->status = EXIT_SUCCESS));
 }
