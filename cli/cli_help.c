@@ -14,7 +14,7 @@
  */
 int cli_help(state_t *state)
 {
-	command_t const *command = get_commands();
+	command_t const *command = NULL;
 
 	if (state->argc > 2)
 	{
@@ -23,20 +23,18 @@ int cli_help(state_t *state)
 	}
 	if (state->argc > 1)
 	{
-		while (command->name)
+		command = find_command(state->argv[1]);
+		if (command)
 		{
-			if (strcmp(state->argv[1], command->name) == 0)
-			{
-				fprintf(stdout, "usage: %s\n%s\n",
-					command->help, command->desc);
-				return ((state->status = EXIT_SUCCESS));
-			}
-			command += 1;
+			fprintf(stdout, "usage: %s\n%s\n",
+				command->help, command->desc);
+			return ((state->status = EXIT_SUCCESS));
 		}
 		fprintf(stderr, "%s: %s: command not found\n",
 			state->argv[0], state->argv[1]);
 		return ((state->status = EXIT_FAILURE));
 	}
+	command = get_commands();
 	while (command->name)
 	{
 		fprintf(stdout, "%s\n", command->help);

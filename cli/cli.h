@@ -90,5 +90,6 @@ int cli_wallet_load(state_t *state);
 int cli_wallet_save(state_t *state);
 
 command_t const *get_commands(void);
+command_t const *find_command(char const *name);
 
 #endif /* _CLI_H_ */

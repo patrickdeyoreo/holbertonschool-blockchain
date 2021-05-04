@@ -15,14 +15,10 @@
  */
 static int dispatch(state_t *state)
 {
-	command_t const *command = get_commands();
+	command_t const *command = find_command(state->argv[0]);
 
-	while (command->name)
-	{
-		if (strcmp(state->argv[0], command->name) == 0)
-			return (command->func(state));
-		command += 1;
-	}
+	if (command)
+		return (command->func(state));
 	fprintf(stderr, "%s: command not found\n", state->argv[0]);
 	return (-1);
 }
