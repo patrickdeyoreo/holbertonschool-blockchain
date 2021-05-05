@@ -48,6 +48,7 @@ static void tokenize(state_t *state)
 				token = strtok(NULL, BLANK);
 			} while (token);
 		}
+		free(linedup);
 		tokens = calloc(ntokens + 1, sizeof(*tokens));
 		ntokens = 0;
 		token = strtok(state->line, BLANK);
