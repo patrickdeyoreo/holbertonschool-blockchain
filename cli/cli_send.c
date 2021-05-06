@@ -40,15 +40,15 @@ static int _cli_send(state_t *state, uint32_t amount, uint8_t pub[EC_PUB_LEN])
 	{
 		fprintf(stderr, "%s: invalid transaction\n",
 			state->argv[0]);
-		transaction_destroy(tx);
 		EC_KEY_free(receiver);
+		transaction_destroy(tx);
 		return ((state->status = EXIT_FAILURE));
 	}
 	if (llist_add_node(state->tx_pool, tx, ADD_NODE_REAR) == -1)
 	{
 		fprintf(stdout, "Failed to add transaction to local transaction pool\n");
-		transaction_destroy(tx);
 		EC_KEY_free(receiver);
+		transaction_destroy(tx);
 		return ((state->status = EXIT_FAILURE));
 	}
 	fprintf(stdout, "Transaction added to local transaction pool\n");
@@ -67,7 +67,7 @@ static int _cli_send(state_t *state, uint32_t amount, uint8_t pub[EC_PUB_LEN])
 int cli_send(state_t *state)
 {
 	uint8_t pub[EC_PUB_LEN] = {0};
-	uint32_t pub_index = 0;
+	size_t pub_index = 0;
 	unsigned long int amount = 0;
 	int nmatched = 0;
 	char *endptr = NULL;
@@ -95,8 +95,8 @@ int cli_send(state_t *state)
 	while (pub_index < EC_PUB_LEN)
 	{
 		nmatched = sscanf(
-			&state->argv[2][pub_index * 2], "%02x",
-			(unsigned int *)&pub[pub_index]);
+			(state->argv[2] + (2 * pub_index)), "%02x",
+			(unsigned int *)(pub + pub_index));
 		if (nmatched == 0)
 			break;
 		pub_index += 1;
