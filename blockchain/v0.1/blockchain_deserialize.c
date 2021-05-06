@@ -14,7 +14,7 @@ static llist_t *blocks_deserialize(int fd, uint32_t size, uint8_t endianness)
 {
 	block_t *block = NULL;
 	uint32_t index = 0;
-	llist_t *list = llist_create(MT_SUPPORT_TRUE);
+	llist_t *list = llist_create(MT_SUPPORT_FALSE);
 
 	if (!list)
 		return (NULL);

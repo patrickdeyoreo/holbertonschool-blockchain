@@ -73,11 +73,11 @@ transaction_t *populate_tx(
 	tx->inputs = llist_create(MT_SUPPORT_FALSE);
 	tx->outputs = llist_create(MT_SUPPORT_FALSE);
 	to_receiver = tx_out_create(visitor->amount, receiver_pub);
-	to_sender = visitor->total_amount > visitor->amount
-		?  tx_out_create(
-			visitor->total_amount - visitor->amount, sender_pub)
-		: 0;
-
+	if (visitor->total_amount > visitor->amount)
+		to_sender = tx_out_create(
+			visitor->total_amount - visitor->amount, sender_pub);
+	else
+		to_sender = 0;
 	if (!tx->inputs || !tx->outputs || !to_receiver ||
 		(visitor->total_amount > visitor->amount && !to_sender))
 		return (llist_destroy(tx->inputs, 1, free),
