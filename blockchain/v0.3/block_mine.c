@@ -12,6 +12,6 @@ void block_mine(block_t *block)
 	do {
 		block->info.nonce = nonce;
 		block_hash(block, block->hash);
-		nonce++;
+		nonce += 1;
 	} while (!hash_matches_difficulty(block->hash, block->info.difficulty));
 }
