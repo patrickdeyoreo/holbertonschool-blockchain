@@ -50,16 +50,9 @@ int foreach_output(llist_node_t node, unsigned int idx, void *_args)
 
 	utxo = unspent_tx_out_create(args[1], args[2], txo);
 	if (!utxo)
-	{
-		dprintf(2, "foreach_output: failed to create UTXO.\n");
 		exit(1);
-	}
-
 	if (llist_add_node(args[0], utxo, ADD_NODE_REAR))
-	{
-		dprintf(2, "foreach_output: failed to add node.\n");
 		exit(1);
-	}
 	return (0);
 	(void)idx;
 }
@@ -97,8 +90,5 @@ llist_t *update_unspent(
 
 	args[0] = all_unspent, args[1] = block_hash;
 	llist_for_each(transactions, foreach_transaction, args);
-	(void)transactions;
-	(void)block_hash;
-	(void)all_unspent;
 	return (all_unspent);
 }

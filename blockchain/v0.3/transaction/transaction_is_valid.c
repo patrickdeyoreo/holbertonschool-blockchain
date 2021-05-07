@@ -33,7 +33,6 @@ int check_inputs(llist_node_t node, unsigned int idx, void *arg)
 
 	if (!utxo)
 	{
-		dprintf(2, "check_inputs: utxo NULL\n");
 		visitor->valid = 0;
 		return (1);
 	}
@@ -41,7 +40,6 @@ int check_inputs(llist_node_t node, unsigned int idx, void *arg)
 	if (!key ||
 		!ec_verify(key, visitor->tx->id, SHA256_DIGEST_LENGTH, &txi->sig))
 	{
-		dprintf(2, "check_inputs: key error\n");
 		visitor->valid = 0;
 		return (EC_KEY_free(key), 1);
 	}
