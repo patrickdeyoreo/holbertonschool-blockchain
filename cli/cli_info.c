@@ -16,7 +16,7 @@ static int sum_unspent_amounts(
 	void *node, unsigned int idx __attribute__((unused)), void *arg)
 {
 	unspent_tx_out_t *unspent_tx_out = node;
-	size_t *accumulator = arg;
+	unsigned long int *accumulator = arg;
 
 	*accumulator += unspent_tx_out->out.amount;
 
@@ -33,7 +33,7 @@ static int sum_unspent_amounts(
  */
 int cli_info(state_t *state)
 {
-	uint64_t coins = 0;
+	unsigned long int coins = 0;
 
 	if (state->argc > 1)
 	{
@@ -43,10 +43,10 @@ int cli_info(state_t *state)
 	llist_for_each(state->blockchain->unspent, sum_unspent_amounts, &coins);
 	fprintf(stdout, "Blocks:  %d\n",
 		llist_size(state->blockchain->chain));
-	fprintf(stdout, "Coins:   %zu\n", coins);
 	fprintf(stdout, "UTXOs:   %d\n",
 		llist_size(state->blockchain->unspent));
 	fprintf(stdout, "TX Pool: %d\n",
 		llist_size(state->tx_pool));
+	fprintf(stdout, "Coins:   %lu\n", coins);
 	return ((state->status = EXIT_SUCCESS));
 }

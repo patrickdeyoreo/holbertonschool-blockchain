@@ -16,27 +16,29 @@
  */
 static int transaction_is_invalid(llist_node_t node, void *arg)
 {
-	transaction_t *tx = node;
+	transaction_t *transaction = node;
+	llist_t *unspent = arg;
 
-	return (!transaction_is_valid(tx, arg));
+	return (!transaction_is_valid(transaction, unspent));
 }
 
 /**
- * add_transaction - add transaction to block
+ * add_transaction - add a transaction to a block
  *
  * @node: transaction
  * @idx: index of node
  * @arg: block to which the transaction should be added
  *
- * Return: Upon adding transaction, return 0. Upon failure, return -1.
+ * Return: Upon adding transaction to block, return 0.
+ * Upon failure, return -1.
  */
 static int add_transaction(
 	llist_node_t node, unsigned int idx __attribute__((unused)), void *arg)
 {
-	transaction_t *tx = node;
+	transaction_t *transaction = node;
 	block_t *block = arg;
 
-	return (llist_add_node(block->transactions, tx, ADD_NODE_REAR));
+	return (llist_add_node(block->transactions, transaction, ADD_NODE_REAR));
 }
 
 /**
@@ -134,8 +136,7 @@ int cli_mine(state_t *state)
 		fprintf(stderr, "%s: too many arguments\n", state->argv[0]);
 		return ((state->status = 2));
 	}
-	block = block_create(
-		prev_block, (int8_t *)block_data, sizeof(block_data));
+	block = block_create(prev_block, block_data, BLOCK_DATA_MAX_LEN);
 	if (!block)
 	{
 		fprintf(stderr, "%s: failed to create block\n", state->argv[0]);
