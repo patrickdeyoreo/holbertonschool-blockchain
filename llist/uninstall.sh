@@ -10,7 +10,7 @@ fi
 
 printf 'Uninstalling library and headers ...\n'
 rm -f /usr/local/lib/libllist.so
-rm -f  /usr/local/include/llist.h
+rm -f /usr/local/include/llist.h
 ldconfig
 
 printf 'Uninstalling man pages ...\n'
