@@ -3,3 +3,4 @@
 !libllist.so
 !llist.h
 !man/**
+!uninstall.sh
