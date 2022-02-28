@@ -13,7 +13,7 @@ OBJ = $(patsubst %.c,%.o,$(SRC))
 all: libhblk_blockchain.a
 
 clean: oclean
-	$(RM) libhblk_crypto.a
+	$(RM) libhblk_blockchain.a
 
 distclean: clean
 	$(RM) $(TAGS)
