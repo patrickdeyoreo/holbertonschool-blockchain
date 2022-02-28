@@ -1,6 +1,6 @@
 # Holberton School - Blockchain
 
-This repository contains a basic implementation of a blockchain.
+This repository contains a basic blockchain implemented using the OpenSSL cryptographic library.
 
 ## Requirements
 
