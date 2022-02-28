@@ -9,7 +9,7 @@ This repository contains a basic implementation of a blockchain.
 - [OpenSSL](https://www.openssl.org/) shared library
 - [pthreads](https://en.wikipedia.org/wiki/Pthreads) shared library (see [`pthreads(7)`](https://man7.org/linux/man-pages/man7/pthreads.7.html) for details)
 
-*NOTE: For installing the above dependencies, defer to your distro's package manager.*
+*NOTE: For details on installing the above dependencies, defer to your distro's package manager.*
 
 ## Build Instructions
 
