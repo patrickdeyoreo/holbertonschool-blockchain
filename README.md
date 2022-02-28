@@ -2,6 +2,8 @@
 
 This repository contains a basic blockchain implemented using the OpenSSL cryptographic library.
 
+---
+
 ## Requirements
 
 - [GCC](https://gcc.gnu.org/) (see [`gcc(1)`](https://www.man7.org/linux/man-pages/man1/gcc.1.html) for details)
@@ -10,6 +12,8 @@ This repository contains a basic blockchain implemented using the OpenSSL crypto
 - [pthreads](https://en.wikipedia.org/wiki/Pthreads) shared library (see [`pthreads(7)`](https://man7.org/linux/man-pages/man7/pthreads.7.html) for details)
 
 *NOTE: For details on installing the above dependencies, defer to your distro's package manager.*
+
+---
 
 ## Build Instructions
 
@@ -51,6 +55,8 @@ cd cli
 make
 ```
 
+---
+
 ## Usage
 
 The CLI may be used to interact with the blockchain. To run the CLI, execute the following command from the root of the repository:
@@ -65,7 +71,7 @@ If execution fails with an error message indicating that the `libllist` library 
 LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}}:/usr/local/lib" cli/cli
 ```
 
-The commands available in the CLI are as follows:
+The following commands are available in the CLI:
 
 | Command     | Usage                 | Description                                     |
 | ----------- | --------------------- | ----------------------------------------------- |
@@ -78,6 +84,8 @@ The commands available in the CLI are as follows:
 | send        | `send AMOUNT ADDRESS` | Send coins.                                     |
 | wallet_load | `wallet_load PATH`    | Load wallet from a file.                        |
 | wallet_save | `wallet_save PATH`    | Save wallet to a file.                          |
+
+---
 
 ## Authors
 
