@@ -71,6 +71,8 @@ If execution fails with an error message indicating that the `libllist` library 
 LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}}:/usr/local/lib" cli/cli
 ```
 
+### Commands
+
 The following commands are available in the CLI:
 
 | Command     | Usage                 | Description                                     |
