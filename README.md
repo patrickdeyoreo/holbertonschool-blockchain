@@ -22,6 +22,8 @@ cd llist
 sudo ./install.sh
 ```
 
+*NOTE: The `llist` library can be uninstalled by running [`uninstall.sh`](llist/uninstall.sh) from the [`llist`](llist/) directory.*
+
 ### Build the `libhblk_crypto` static library
 
 To make the `libhblk_crypto` static library from the [`crypto`](crypto/) directory, execute the following commands from the root of the repository:
@@ -31,7 +33,7 @@ cd crypto
 make
 ```
 
-### Build the `libhblk_blockhain` static library
+### Build the `libhblk_blockhain` static library (version 0.3)
 
 To make the `libhblk_blockhain` static library from the [`blockchain/v0.3`](blockchain/v0.3/) directory, execute the following commands from the root of the repository:
 
@@ -57,7 +59,7 @@ The CLI may be used to interact with the blockchain. To run the CLI, execute the
 cli/cli
 ```
 
-If execution fails with an error message indicating that the `libllist` library cannot be found, temporarily add `/usr/local/lib` to the linker search paths by running the CLI from the root of the repository with the following command:
+If execution fails with an error message indicating that the `libllist` library cannot be found, temporarily add `/usr/local/lib` to the linker's search paths by running the CLI from the root of the repository with the following command:
 
 ```sh
 LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}}:/usr/local/lib" cli/cli
