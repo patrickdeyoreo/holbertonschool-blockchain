@@ -46,7 +46,7 @@ cd blockchain/v0.3
 make
 ```
 
-### Build the CLI executable
+### Build the `cli` executable
 
 To make the `libhblk_blockhain` static library from the [`blockchain/v0.3`](blockchain/v0.3/) directory, execute the following commands from the root of the repository:
 
